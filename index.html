@@ -6,6 +6,9 @@
   <title>StudyTrack Pro — Spaced Repetition & Focus Mastery</title>
   <meta name="description" content="Boost your study retention with spaced repetition flashcards, topic notes, and focus timer." />
   
+  <!-- Favicon Logo -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg" />
+  
   <!-- CSS Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -15,19 +18,30 @@
   <div class="bg-ambient-glow"></div>
   <canvas id="particle-canvas"></canvas>
 
-  <!-- Mobile Hamburger Button -->
-  <button class="mobile-hamburger" id="hamburger-btn" onclick="app.toggleSidebar()" aria-label="Toggle Navigation">
-    ☰
-  </button>
+  <!-- Mobile Top Bar with Logo & Hamburger -->
+  <div class="mobile-top-bar">
+    <button class="mobile-hamburger" id="hamburger-btn" onclick="app.toggleSidebar()" aria-label="Toggle Navigation">
+      ☰
+    </button>
+    <div class="mobile-brand" onclick="app.navigate('dashboard')">
+      <img src="logo.svg" alt="StudyTrack Logo" class="mobile-logo-img" />
+      <span>Study<span>Track</span></span>
+    </div>
+  </div>
 
   <!-- Main Application Shell -->
   <div class="app-shell">
 
     <!-- Sidebar Navigation -->
     <nav class="sidebar" id="app-sidebar">
-      <div class="brand-logo">
-        <div class="logo-icon">⚡</div>
-        <div>Study<span>Track</span></div>
+      <div class="brand-logo" onclick="app.navigate('dashboard')">
+        <div class="logo-icon">
+          <img src="logo.svg" alt="StudyTrack Pro Logo" class="brand-logo-img" />
+        </div>
+        <div class="brand-logo-text">
+          Study<span>Track</span>
+          <span class="brand-badge">PRO</span>
+        </div>
       </div>
 
       <div class="nav-section-title">Core Menu</div>
@@ -95,7 +109,9 @@
   <!-- Onboarding Modal Overlay -->
   <div class="modal-overlay" id="onboard-modal">
     <div class="modal-card">
-      <div style="font-size: 42px; margin-bottom: 12px; text-align: center;">🚀</div>
+      <div class="modal-logo-header">
+        <img src="logo.svg" alt="StudyTrack Pro Logo" class="modal-logo-img" />
+      </div>
       <div class="modal-title" style="text-align: center;">Welcome to StudyTrack Pro</div>
       <div class="modal-sub" style="text-align: center;">
         Supercharge your study workflow with spaced repetition, flashcards, and focus tools.
@@ -113,7 +129,10 @@
   <!-- Settings & Backup Modal -->
   <div class="modal-overlay" id="settings-modal">
     <div class="modal-card">
-      <div class="modal-title">Settings & Data Backup</div>
+      <div class="modal-title-with-logo">
+        <img src="logo.svg" alt="Logo" class="modal-title-logo" />
+        <span>Settings & Data Backup</span>
+      </div>
       <div class="modal-sub">Manage your study data or export JSON backups.</div>
       
       <div style="display:flex; flex-direction:column; gap:12px; margin-bottom: 24px;">

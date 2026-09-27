@@ -286,7 +286,10 @@ class StudyTrackApp {
     container.innerHTML = `
       <div class="page-header">
         <div>
-          <h1 class="page-title">Welcome back, ${this.escapeHtml(this.state.userName)} 👋</h1>
+          <h1 class="page-title">
+            <img src="logo.svg" alt="Logo" class="title-logo-icon" />
+            <span>Welcome back, ${this.escapeHtml(this.state.userName)} 👋</span>
+          </h1>
           <p class="page-subtitle">Track your study retention & daily spaced repetition goals.</p>
         </div>
         <div style="display:flex; gap:10px;">
@@ -376,7 +379,10 @@ class StudyTrackApp {
     container.innerHTML = `
       <div class="page-header">
         <div>
-          <h1 class="page-title">My Study Library</h1>
+          <h1 class="page-title">
+            <img src="logo.svg" alt="Logo" class="title-logo-icon" />
+            <span>My Study Library</span>
+          </h1>
           <p class="page-subtitle">Manage, edit, and organize all your study cards and notes.</p>
         </div>
         <button class="btn btn-primary" onclick="app.navigate('add')">➕ Add New Item</button>
@@ -470,7 +476,10 @@ class StudyTrackApp {
     container.innerHTML = `
       <div class="page-header">
         <div>
-          <h1 class="page-title">Due For Review Today</h1>
+          <h1 class="page-title">
+            <img src="logo.svg" alt="Logo" class="title-logo-icon" />
+            <span>Due For Review Today</span>
+          </h1>
           <p class="page-subtitle">${dueItems.length} study items require spacing review today.</p>
         </div>
         ${dueItems.length > 0 ? `
@@ -675,7 +684,10 @@ class StudyTrackApp {
         <div class="review-container">
           <div class="page-header">
             <div>
-              <h1 class="page-title">Review Session</h1>
+              <h1 class="page-title">
+                <img src="logo.svg" alt="Logo" class="title-logo-icon" />
+                <span>Review Session</span>
+              </h1>
               <p class="page-subtitle">Interactive spaced repetition flashcard runner.</p>
             </div>
           </div>
@@ -697,7 +709,10 @@ class StudyTrackApp {
         <div class="review-container">
           <div class="page-header">
             <div>
-              <h1 class="page-title">Session Complete!</h1>
+              <h1 class="page-title">
+                <img src="logo.svg" alt="Logo" class="title-logo-icon" />
+                <span>Session Complete!</span>
+              </h1>
               <p class="page-subtitle">Fantastic effort!</p>
             </div>
           </div>
@@ -740,7 +755,10 @@ class StudyTrackApp {
       <div class="review-container">
         <div class="page-header">
           <div>
-            <h1 class="page-title">Flashcard Review</h1>
+            <h1 class="page-title">
+              <img src="logo.svg" alt="Logo" class="title-logo-icon" />
+              <span>Flashcard Review</span>
+            </h1>
             <p class="page-subtitle">Press <kbd style="background:var(--bg-surface); padding:2px 6px; border-radius:4px; font-size:11px;">Space</kbd> to flip card, <kbd style="background:var(--bg-surface); padding:2px 6px; border-radius:4px; font-size:11px;">1-5</kbd> to score.</p>
           </div>
           <div style="font-size:14px; font-weight:700; color:var(--text-muted);">
@@ -855,7 +873,10 @@ class StudyTrackApp {
     container.innerHTML = `
       <div class="page-header">
         <div>
-          <h1 class="page-title">Focus Pomodoro Timer</h1>
+          <h1 class="page-title">
+            <img src="logo.svg" alt="Logo" class="title-logo-icon" />
+            <span>Focus Pomodoro Timer</span>
+          </h1>
           <p class="page-subtitle">Boost deep work sessions using structured 25-minute intervals.</p>
         </div>
       </div>
@@ -969,7 +990,10 @@ class StudyTrackApp {
     container.innerHTML = `
       <div class="page-header">
         <div>
-          <h1 class="page-title">Study Mastery Analytics</h1>
+          <h1 class="page-title">
+            <img src="logo.svg" alt="Logo" class="title-logo-icon" />
+            <span>Study Mastery Analytics</span>
+          </h1>
           <p class="page-subtitle">Visual insights into your learning progress and subject balance.</p>
         </div>
       </div>
@@ -1093,7 +1117,10 @@ class StudyTrackApp {
     container.innerHTML = `
       <div class="page-header">
         <div>
-          <h1 class="page-title">Add New Study Item</h1>
+          <h1 class="page-title">
+            <img src="logo.svg" alt="Logo" class="title-logo-icon" />
+            <span>Add New Study Item</span>
+          </h1>
           <p class="page-subtitle">Select a format and fill in the details for spaced learning.</p>
         </div>
       </div>
