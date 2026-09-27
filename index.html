@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyTrack Pro — Spaced Repetition & Focus Mastery</title>
+  <meta name="description" content="Boost your study retention with spaced repetition flashcards, topic notes, and focus timer." />
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Ambient Background Canvas & Glow -->
+  <div class="bg-ambient-glow"></div>
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Mobile Hamburger Button -->
+  <button class="mobile-hamburger" id="hamburger-btn" onclick="app.toggleSidebar()" aria-label="Toggle Navigation">
+    ☰
+  </button>
+
+  <!-- Main Application Shell -->
+  <div class="app-shell">
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="app-sidebar">
+      <div class="brand-logo">
+        <div class="logo-icon">⚡</div>
+        <div>Study<span>Track</span></div>
+      </div>
+
+      <div class="nav-section-title">Core Menu</div>
+      <ul class="nav-list">
+        <li class="nav-item active" id="nav-dashboard" onclick="app.navigate('dashboard')">
+          <span class="nav-icon">📊</span>
+          <span>Dashboard</span>
+        </li>
+        <li class="nav-item" id="nav-items" onclick="app.navigate('items')">
+          <span class="nav-icon">📚</span>
+          <span>My Items</span>
+        </li>
+        <li class="nav-item" id="nav-due" onclick="app.navigate('due')">
+          <span class="nav-icon">⏰</span>
+          <span>Due Today</span>
+          <span class="badge-count" id="due-count-badge" style="display:none;">0</span>
+        </li>
+        <li class="nav-item" id="nav-review" onclick="app.navigate('review')">
+          <span class="nav-icon">↺</span>
+          <span>Flashcard Review</span>
+          <span class="badge-count" id="review-badge" style="display:none;">0</span>
+        </li>
+      </ul>
+
+      <div class="nav-section-title">Tools & Insights</div>
+      <ul class="nav-list">
+        <li class="nav-item" id="nav-focus" onclick="app.navigate('focus')">
+          <span class="nav-icon">⏱️</span>
+          <span>Focus Timer</span>
+        </li>
+        <li class="nav-item" id="nav-analytics" onclick="app.navigate('analytics')">
+          <span class="nav-icon">📈</span>
+          <span>Analytics</span>
+        </li>
+        <li class="nav-item" id="nav-add" onclick="app.navigate('add')">
+          <span class="nav-icon">➕</span>
+          <span>Add Study Item</span>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-card">
+          <div class="user-avatar" id="sb-avatar">?</div>
+          <div class="user-info">
+            <div class="user-name" id="sb-name">Student</div>
+            <div class="user-streak" id="sb-streak">🔥 0 Day Streak</div>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="app.openSettings()" title="Backup & Options" style="padding: 4px 6px;">
+            ⚙️
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Dynamic Content Workspace -->
+    <main class="main-content" id="main-app">
+      <!-- Dynamic pages rendered by JavaScript app.js -->
+    </main>
+
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Onboarding Modal Overlay -->
+  <div class="modal-overlay" id="onboard-modal">
+    <div class="modal-card">
+      <div style="font-size: 42px; margin-bottom: 12px; text-align: center;">🚀</div>
+      <div class="modal-title" style="text-align: center;">Welcome to StudyTrack Pro</div>
+      <div class="modal-sub" style="text-align: center;">
+        Supercharge your study workflow with spaced repetition, flashcards, and focus tools.
+      </div>
+      <div class="form-group">
+        <label for="onboard-user-name">What should we call you?</label>
+        <input type="text" id="onboard-user-name" placeholder="e.g. Alex" autofocus />
+      </div>
+      <button class="btn btn-primary btn-full" onclick="app.completeOnboarding()">
+        Get Started →
+      </button>
+    </div>
+  </div>
+
+  <!-- Settings & Backup Modal -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="modal-card">
+      <div class="modal-title">Settings & Data Backup</div>
+      <div class="modal-sub">Manage your study data or export JSON backups.</div>
+      
+      <div style="display:flex; flex-direction:column; gap:12px; margin-bottom: 24px;">
+        <button class="btn btn-secondary btn-full" onclick="app.exportData()">
+          📥 Export Study Data (JSON)
+        </button>
+        <label class="btn btn-secondary btn-full" style="cursor:pointer; text-align:center;">
+          📤 Import Data (JSON)
+          <input type="file" id="import-file-input" accept=".json" style="display:none;" onchange="app.importData(event)" />
+        </label>
+        <button class="btn btn-secondary btn-full" onclick="app.loadSamplePresets()">
+          ✨ Load Sample Study Decks
+        </button>
+      </div>
+
+      <div style="display:flex; justify-content: flex-end; gap:10px;">
+        <button class="btn btn-ghost" onclick="app.closeModal('settings-modal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Application Bundle -->
+  <script src="app.js"></script>
+</body>
+</html>
