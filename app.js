@@ -287,89 +287,189 @@ class StudyTrackApp {
       <div class="page-header">
         <div>
           <h1 class="page-title">
-            <img src="logo.svg" alt="Logo" class="title-logo-icon" />
-            <span>Welcome back, ${this.escapeHtml(this.state.userName)} 👋</span>
+            <span>Welcome Back 👋</span>
           </h1>
-          <p class="page-subtitle">Track your study retention & daily spaced repetition goals.</p>
+          <p class="page-subtitle" style="color: var(--text-faint);">Let's learn something new today!</p>
         </div>
         <div style="display:flex; gap:10px;">
-          <button class="btn btn-primary" onclick="app.navigate('review')">
-            <span>↺</span> Start Review Session
-          </button>
-          <button class="btn btn-secondary" onclick="app.navigate('add')">
-            <span>➕</span> Add Item
-          </button>
+          <div style="width:36px; height:36px; background:var(--bg-card); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm); cursor:pointer;">🔍</div>
+          <div style="width:36px; height:36px; background:var(--bg-card); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm); cursor:pointer;">🔔</div>
+          <div style="width:36px; height:36px; border-radius:50%; background:var(--accent-blue); color:white; display:flex; align-items:center; justify-content:center; font-weight:bold; box-shadow:var(--shadow-sm); cursor:pointer;">${this.state.userName.charAt(0) || 'U'}</div>
         </div>
       </div>
 
-      <!-- Stats Grid Cards -->
-      <div class="stats-grid">
-        <div class="stat-card" style="--stat-accent: var(--accent-blue);">
-          <div class="stat-header">
-            <span class="stat-label">Total Items</span>
-            <span>📚</span>
+      <!-- Stats Grid Cards (adapted to match top row of reference) -->
+      <div class="stats-grid" style="grid-template-columns: 2fr 1.2fr 1fr 1.5fr;">
+        <div class="stat-card">
+          <div class="stat-label" style="margin-bottom:8px; font-size:14px;">Total Items Progress</div>
+          <div style="display:flex; gap:20px; font-size:12px; font-weight:600; color:var(--text-muted); margin-bottom:16px;">
+            <span>⏱️ ${totalCount} items</span>
+            <span style="color:var(--accent-amber);">📚 ${reviewedCount} reviewed</span>
           </div>
-          <div class="stat-value">${totalCount}</div>
-          <div class="stat-hint">${reviewedCount} reviewed so far</div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:600; margin-bottom:6px; color:var(--text-muted);">
+            <span>Review Progress</span>
+            <span>${totalCount ? Math.round(reviewedCount/totalCount*100) : 0}%</span>
+          </div>
+          <div style="width:100%; height:6px; background:var(--bg-surface); border-radius:3px; overflow:hidden;">
+            <div style="width:${totalCount ? Math.round(reviewedCount/totalCount*100) : 0}%; height:100%; background:var(--text-main); border-radius:3px;"></div>
+          </div>
         </div>
 
-        <div class="stat-card" style="--stat-accent: var(--accent-red);">
-          <div class="stat-header">
-            <span class="stat-label">Due For Review</span>
-            <span>⏰</span>
+        <div class="stat-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <div class="stat-label">Avg Score</div>
+            <div class="graph-dropdown">Month ∨</div>
           </div>
-          <div class="stat-value" style="color:var(--accent-red);">${dueCount}</div>
-          <div class="stat-hint">Items scheduled for today</div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <div style="width:16px; height:16px; border-radius:50%; background:var(--accent-red-bg); display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--accent-red);">★</div>
+            <div>
+              <div style="font-weight:700; font-size:13px;">${avgScore} / 5.0</div>
+              <div style="font-size:10px; color:var(--text-muted);">Current Avg</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div style="width:16px; height:16px; border-radius:50%; background:var(--accent-green-bg); display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--accent-green);">✓</div>
+            <div>
+              <div style="font-weight:700; font-size:13px;">${dueCount}</div>
+              <div style="font-size:10px; color:var(--text-muted);">Due Today</div>
+            </div>
+          </div>
         </div>
 
-        <div class="stat-card" style="--stat-accent: var(--accent-amber);">
-          <div class="stat-header">
-            <span class="stat-label">Avg Recall Score</span>
-            <span>⭐</span>
+        <div class="stat-card">
+          <div class="stat-label" style="margin-bottom:8px;">Your Streak</div>
+          <div style="font-size:28px; font-weight:800; display:flex; align-items:baseline; gap:4px; margin-bottom:4px;">
+            ${this.state.streakDays} <span style="font-size:14px;">Days</span>
           </div>
-          <div class="stat-value" style="color:var(--accent-amber);">${avgScore}</div>
-          <div class="stat-hint">Scale of 1 to 5</div>
+          <div style="font-size:11px; color:var(--text-muted); margin-bottom:12px;">Keep it up!</div>
+          <div style="display:flex; gap:4px; flex-wrap:wrap;">
+            ${[...Array(14)].map((_,i) => `<div style="width:8px; height:8px; border-radius:50%; background:${i < this.state.streakDays ? 'var(--accent-amber)' : 'var(--bg-surface)'};"></div>`).join('')}
+          </div>
         </div>
 
-        <div class="stat-card" style="--stat-accent: var(--accent-purple);">
-          <div class="stat-header">
-            <span class="stat-label">Study Streak</span>
-            <span>🔥</span>
-          </div>
-          <div class="stat-value" style="color:var(--accent-purple);">${this.state.streakDays}d</div>
-          <div class="stat-hint">Keep learning daily!</div>
+        <div class="stat-card" style="background:#fef5f0; border:none; display:flex; flex-direction:column; justify-content:center;">
+          <h3 style="font-size:18px; font-weight:800; margin-bottom:8px; line-height:1.2;">Keep Learning New Things Everyday</h3>
+          <p style="font-size:11px; color:var(--text-muted); margin-bottom:16px; line-height:1.4;">
+            Get ready for an exciting journey into new knowledge!
+          </p>
+          <button class="btn btn-primary" style="align-self:flex-start; padding:8px 16px; font-size:12px; border-radius:20px; background:#111827; color:#fff;" onclick="app.navigate('add')">Add Item ＋</button>
         </div>
       </div>
 
-      <!-- Recent Items Panel -->
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">
-            <span>📌</span> Recently Added Items
+      <!-- Main Graphs Area -->
+      <div class="dashboard-grid">
+        <!-- Bar Chart: Study Statistics -->
+        <div class="graph-card" style="grid-column: span 1;">
+          <div class="graph-header">
+            <div class="graph-title">Study Statistics</div>
+            <div class="graph-dropdown">Weekly ∨</div>
           </div>
-          <button class="btn btn-ghost btn-sm" onclick="app.navigate('items')">View All →</button>
+          
+          <div class="bar-chart-container">
+            <!-- Y Axis labels -->
+            <div style="position:absolute; left:0; top:0; bottom:24px; display:flex; flex-direction:column; justify-content:space-between; font-size:10px; color:var(--text-muted); font-weight:600;">
+              <span>8h</span>
+              <span>7h</span>
+              <span>5h</span>
+              <span>3h</span>
+              <span>1h</span>
+              <span>0h</span>
+            </div>
+            
+            <!-- Grid lines -->
+            <div style="position:absolute; left:24px; right:0; top:6px; bottom:24px; display:flex; flex-direction:column; justify-content:space-between; z-index:0;">
+              <div style="border-top:1px dashed var(--border-subtle); width:100%;"></div>
+              <div style="border-top:1px dashed var(--border-subtle); width:100%;"></div>
+              <div style="border-top:1px dashed var(--border-subtle); width:100%;"></div>
+              <div style="border-top:1px dashed var(--border-subtle); width:100%;"></div>
+              <div style="border-top:1px dashed var(--border-subtle); width:100%;"></div>
+              <div style="border-top:1px dashed var(--border-subtle); width:100%;"></div>
+            </div>
+
+            <!-- Bars -->
+            <div style="margin-left:36px; display:flex; justify-content:space-between; width:100%; height:100%; z-index:1;">
+              ${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map((day, i) => {
+                const heightPct = [40, 80, 60, 90, 70, 40, 60][i];
+                const activePct = [30, 60, 45, 75, 50, 20, 50][i];
+                return `
+                <div class="bar-wrapper">
+                  <div class="bar-bg" style="height:${heightPct}%;"></div>
+                  <div class="bar-fill" style="height:${activePct}%;"></div>
+                  <div class="bar-label">${day}</div>
+                </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+          
+          <div style="display:flex; gap:16px; margin-top:16px; font-size:11px; font-weight:600; color:var(--text-muted); align-items:center; margin-left:36px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <div style="width:10px; height:10px; border-radius:50%; background:var(--accent-blue);"></div> Active
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <div style="width:10px; height:10px; border-radius:50%; background:var(--bg-surface);"></div> Goal
+            </div>
+          </div>
         </div>
-        <div class="panel-body" id="dashboard-recent-list"></div>
+
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <!-- Ring Chart: Learn tracking -->
+          <div class="graph-card">
+            <div class="graph-header" style="margin-bottom:0;">
+              <div class="graph-title">Learn tracking</div>
+              <div style="font-weight:bold; color:var(--text-muted); cursor:pointer;">⋮</div>
+            </div>
+            
+            <div class="ring-chart-container">
+              <svg viewBox="0 0 100 100" width="140" height="140">
+                <!-- BG rings -->
+                <circle cx="50" cy="50" r="40" fill="none" stroke="var(--bg-surface)" stroke-width="8" />
+                <circle cx="50" cy="50" r="28" fill="none" stroke="var(--bg-surface)" stroke-width="8" />
+                <circle cx="50" cy="50" r="16" fill="none" stroke="var(--bg-surface)" stroke-width="8" />
+                
+                <!-- Foreground rings -->
+                <circle cx="50" cy="50" r="40" fill="none" stroke="var(--accent-red)" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="80" stroke-linecap="round" transform="rotate(-90 50 50)" />
+                <circle cx="50" cy="50" r="28" fill="none" stroke="var(--accent-amber)" stroke-width="8" stroke-dasharray="175.9" stroke-dashoffset="60" stroke-linecap="round" transform="rotate(-90 50 50)" />
+                <circle cx="50" cy="50" r="16" fill="none" stroke="#f472b6" stroke-width="8" stroke-dasharray="100.5" stroke-dashoffset="40" stroke-linecap="round" transform="rotate(-90 50 50)" />
+              </svg>
+              <div class="ring-chart-center">
+                <div style="font-size:16px; font-weight:800; color:var(--text-main);">${totalCount > 0 ? Math.round(reviewedCount/totalCount*100) : 0}%</div>
+                <div style="font-size:8px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Goal Distance</div>
+              </div>
+            </div>
+            
+            <div class="ring-legend">
+              <div class="ring-legend-item"><div class="ring-dot" style="background:var(--accent-red);"></div> Month</div>
+              <div class="ring-legend-item"><div class="ring-dot" style="background:var(--accent-amber);"></div> Week</div>
+              <div class="ring-legend-item"><div class="ring-dot" style="background:#f472b6;"></div> Day</div>
+            </div>
+          </div>
+
+          <!-- Gauge Chart: Learning Progress -->
+          <div class="graph-card">
+            <div class="graph-title" style="margin-bottom:8px;">Learning Progress</div>
+            <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+              <div>
+                <div style="color:var(--accent-green); font-size:12px; font-weight:700; display:flex; align-items:center; gap:4px;">
+                  11.2% <span>▲</span>
+                </div>
+                <div style="font-size:11px; color:var(--text-muted); margin-top:4px; font-weight:500;">Compared to last month</div>
+              </div>
+              
+              <div class="gauge-container" style="width:120px; height:60px; margin-top:0;">
+                <svg viewBox="0 0 100 50" width="120" height="60" style="overflow:visible;">
+                  <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="var(--bg-surface)" stroke-width="12" stroke-dasharray="4 4" stroke-linecap="round" />
+                  <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="var(--accent-amber)" stroke-width="12" stroke-dasharray="8 8" stroke-dashoffset="0" stroke-linecap="round" />
+                </svg>
+                <div class="gauge-center-text" style="width:100%; bottom:-5px;">
+                  <span style="font-size:24px; font-weight:800; color:var(--text-main);">74%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     `;
-
-    const recentContainer = document.getElementById('dashboard-recent-list');
-    const recentItems = [...this.state.items].slice(-4).reverse();
-
-    if (recentItems.length === 0) {
-      recentContainer.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">📭</div>
-          <div class="empty-state-title">No Study Items Found</div>
-          <div class="empty-state-text">Start by adding your first flashcard, topic note, or lecture slide.</div>
-          <button class="btn btn-primary" onclick="app.navigate('add')">➕ Create Item</button>
-        </div>
-      `;
-    } else {
-      recentItems.forEach((item) => {
-        recentContainer.appendChild(this.buildItemCardNode(item));
-      });
-    }
   }
 
   /* --------------------------------------------------------------------------
